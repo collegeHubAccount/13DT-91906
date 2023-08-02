@@ -49,5 +49,6 @@ if __name__ == "__main__":
     # print(f'you got {score} out of {total_questions}')
     app.draw(app.canvas, app.x1, app.y1, app.x2, app.y2, 
                  "red", "green", "purple", "yellow")
-    app.ready(app.canvas)
+    app.ready()
+
     app.mainloop()
