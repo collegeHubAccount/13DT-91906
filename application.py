@@ -33,11 +33,11 @@ class App(tk.Tk):
         canvas.create_rectangle(x1+90,y1,x2+90,y2,fill=colour4)
         canvas.create_rectangle(x1+120,y1,x2+120,y2,fill=colour5)
     
-    def confirm(self, event=None):
-        self.ans = self.entry.get()
-        print(self.ans)
+    # def confirm(self, event=None):
+    #     self.ans = self.entry.get()
+    #     print(self.ans)
 
     def ready(self):
         self.canvas.pack(side=tk.TOP)
         self.entry.pack()
-        self.bind('<Return>', self.confirm)
+        # self.bind('<Return>', self.confirm)
