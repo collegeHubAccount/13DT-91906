@@ -1,5 +1,6 @@
 # import/s
 import tkinter as tk
+from PIL import ImageTk, Image
 
 
 # settup class for tk
@@ -7,6 +8,7 @@ class App(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
         # configuration
+        self.val = self.register(self.onlyNum)
         self.title("test application")
         self.resizable(False,False)
         self.canvas_w = 640
@@ -14,18 +16,30 @@ class App(tk.Tk):
         self.geometry(f"{self.canvas_w}x{self.canvas_h}+240+100")
         self.canvas_h *= 0.3
         self.displace = -140 / 2
+        self.img = Image.open("resbody.png").resize((300,58))
+        self.img = ImageTk.PhotoImage(self.img)
         self.x1 = (self.canvas_w * 0.5) + self.displace
         self.y1 = (self.canvas_h * 0.5)
         self.x2 = (self.canvas_w * 0.5) + self.displace + 20
-        self.y2 = (self.canvas_h * 0.5) - 40
+        self.y2 = (self.canvas_h * 0.5) - 45
 
         # objects
         self.canvas = tk.Canvas(self, width=self.canvas_w,
                                 height=self.canvas_h)
-        self.entry = tk.Entry(self, width=40)
-        self.lbl = tk.Label(self, text='Enter the resistor value')
+        self.entry = tk.Entry(self, width=40, validate='key', 
+                              validatecommand=(self.val, '%S'))
+        self.lbl = tk.Label(self, text='Enter the resistor value in ohms then \
+press ENTER \n to check your answer and move onto the next question')
         self.display_txt = tk.Label(self, text='')
         self.ques = tk.Label(self, text='')
+
+    
+
+    def onlyNum(self, char):
+        if char.isdigit():
+            return True
+        else:
+            return False
 
 
     def draw(self, canvas, x1, y1, x2, y2, 
@@ -35,14 +49,11 @@ class App(tk.Tk):
         canvas.create_rectangle(x1 + 60, y1, x2 + 60, y2, fill=colour3)
         canvas.create_rectangle(x1 + 90, y1, x2 + 90, y2, fill=colour4)
         canvas.create_rectangle(x1 + 120, y1, x2 + 120, y2, fill=colour5)
-    
-    # def confirm(self, event=None):
-    #     self.ans = self.entry.get()
-    #     print(self.ans)
 
 
     def ready(self):
         self.canvas.pack()
+        self.canvas.create_image(self.canvas_w//2, 50, image=self.img)
         self.display_txt.pack()
         self.entry.pack()
         self.lbl.pack()
