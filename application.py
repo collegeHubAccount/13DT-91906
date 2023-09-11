@@ -9,7 +9,7 @@ class App(tk.Tk):
         super().__init__()
         # configuration
         self.val = self.register(self.onlyNum)
-        self.title("test application")
+        self.title("Resistor test")
         self.resizable(False,False)
         self.canvas_w = 640
         self.canvas_h = 480
@@ -34,7 +34,8 @@ press ENTER \n to check your answer and move onto the next question')
         self.ques = tk.Label(self, text='')
 
     
-
+    # this function is for validity checking it simply returns true if input
+    # is a number (0-9)
     def onlyNum(self, char):
         if char.isdigit():
             return True
@@ -42,6 +43,7 @@ press ENTER \n to check your answer and move onto the next question')
             return False
 
 
+    # this draws all the resistor bands with the correct ofesets
     def draw(self, canvas, x1, y1, x2, y2, 
              colour1, colour2, colour3, colour4, colour5="brown"):
         canvas.create_rectangle(x1, y1, x2, y2, fill=colour1)
@@ -51,6 +53,8 @@ press ENTER \n to check your answer and move onto the next question')
         canvas.create_rectangle(x1 + 120, y1, x2 + 120, y2, fill=colour5)
 
 
+    # runs after setup in complete in main file just packs everything to 
+    # prepare for usage
     def ready(self):
         self.canvas.pack()
         self.canvas.create_image(self.canvas_w//2, 50, image=self.img)

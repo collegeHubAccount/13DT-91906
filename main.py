@@ -72,7 +72,12 @@ def display(bands, run):
         return 0, [], False
 
 
-
+# confirm function witch is called when user hits enter beause it is called in
+# a tkinter .bind method variables cannot be updated in the usual way [var1,
+# var2 = function(var1, var2)] this means standerd practise is to use global
+# variables ONLY for the ones that are updated inside the function this is 
+# a quirk of tkinter so tkinters convention overides typical pep8 convetion
+# witch states to avoid globals
 def confirm(event=None):
     global score, question, bands, run, value
     app.ans = app.entry.get()
@@ -101,6 +106,8 @@ some practise, don\'t worry keep trying")
     app.entry.delete(0, 'end')
 
 
+# this code runs if main file all the variables are initilised and the app is
+# settup and readyed before mainloop is caleld
 if __name__ == "__main__":
     # init
     question = 1
